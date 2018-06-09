@@ -1,38 +1,41 @@
+import * as $ from 'jquery';
 import { IProduct } from '../models/product';
 import { Cart } from './cart';
 
 export class ProductList{
-    private productListContainer: HTMLDivElement;
+    private productListContainer: JQuery<HTMLDivElement>;
     constructor(
         public list: Array<IProduct>,
         public cart: Cart
     ){
-        this.productListContainer = document.querySelector('.product-list') as HTMLDivElement;
+        this.productListContainer = $('.product-list') as JQuery<HTMLDivElement>;
     }
     renderList(): void {
         this.list.forEach((item: IProduct) => {
-            const productDivEl: HTMLDivElement = document.createElement('div') as HTMLDivElement;
-            productDivEl.className = 'product-item';
-            const productTitleEl : HTMLHeadingElement = document.createElement('h3') as HTMLHeadingElement;
-            const productImageEl : HTMLImageElement = document.createElement('img') as HTMLImageElement;
-            const productPriceEl: HTMLParagraphElement = document.createElement('p') as HTMLParagraphElement;
-            const addProductBtnEl : HTMLButtonElement = document.createElement('button') as HTMLButtonElement;
+            const productDivJqueryEl: JQuery<HTMLDivElement> = $('<div />') as JQuery<HTMLDivElement>;
+            productDivJqueryEl.addClass('col-12 col-sm-6 product-item');
+            const productTitleEl : JQuery<HTMLHeadingElement> = $('<h3 />') as JQuery<HTMLHeadingElement>;
+            const productImageEl : JQuery<HTMLImageElement> = $('<img />') as JQuery<HTMLImageElement>;
+            const productPriceEl: JQuery<HTMLParagraphElement> = $('<p />') as JQuery<HTMLParagraphElement>;
+            const addProductBtnEl : JQuery<HTMLButtonElement> = $('<button />') as JQuery<HTMLButtonElement>;
 
-            productTitleEl.textContent = item.title;
-            productImageEl.src = item.imgUrl;
-            productPriceEl.textContent = item.price.toString();
-            addProductBtnEl.textContent = "Add to Cart";
+            productTitleEl.text(item.title);
+            productImageEl.attr('src', item.imgUrl);
+            productImageEl.addClass("img-fluid rounded");
+            productPriceEl.text(item.price.toString());
+            addProductBtnEl.text("Add to Cart");
+            addProductBtnEl.addClass("btn btn-success");
 
-            addProductBtnEl.addEventListener('click', () => {
+            addProductBtnEl.on('click', () => {
                 this.cart.addToCart(item.id);
             });
 
-            productDivEl.appendChild(productTitleEl);
-            productDivEl.appendChild(productImageEl);
-            productDivEl.appendChild(productPriceEl);
-            productDivEl.appendChild(addProductBtnEl);
+            productDivJqueryEl.append(productTitleEl);
+            productDivJqueryEl.append(productImageEl);
+            productDivJqueryEl.append(productPriceEl);
+            productDivJqueryEl.append(addProductBtnEl);
 
-            this.productListContainer.appendChild(productDivEl);
+            this.productListContainer.append(productDivJqueryEl);
         });
     }
 }
