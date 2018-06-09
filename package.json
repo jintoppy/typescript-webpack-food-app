@@ -1,0 +1,23 @@
+{
+  "name": "typescript-webpack-start",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start:dev": "webpack-dev-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^4.12.0"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.0.0",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.9.1",
+    "webpack-cli": "^3.0.3",
+    "webpack-dev-server": "^3.1.4"
+  }
+}
